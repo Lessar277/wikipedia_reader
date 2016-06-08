@@ -13,7 +13,7 @@
 
     <body class="bg-inverse">
 
-        <div class="container m-t-3 p-y-3" ng-controller="SearchController as search">
+        <div class="container m-t-3 p-y-3" ng-controller="MainController as main">
             <!-- LOGO -->
             <h1 class="text-xs-center m-b-2 display-2 hidden-sm-down" style="font-family: 'Special Elite', cursive; ">WikiReads</h3>
             <h1 class="text-xs-center m-b-3 display-4 hidden-md-up" style="font-family: 'Special Elite', cursive; ">WikiReads</h3>
@@ -22,14 +22,18 @@
             <!-- SEARCH BOX -->
             <div class="row text-xs-center">
                 <div class="col-xs-12">
-                    <input type="text" class="form-control bg-inverse" placeholder="Search Wikipedia" ng-model="userSearch" ng-change="search.logSearch(userSearch); search.addSearch()">
+                    <input type="text" class="form-control bg-inverse" placeholder="Search Wikipedia" ng-model="input"
+                    ng-model-options="{ debounce: 500 }"
+                    ng-change="main.getSuggestions(input); main.collapser(input)"
+                    ng-blur="main.collapseHide()" >
                 </div>
             </div>
             <div class="collapse">
                 <ul class="list-group">
-                    <li class="list-group-item bg-inverse" ng-repeat="city in search.cities" ng-click="search.logCity(city)" style="cursor: pointer">
-                        {{city}}
-                    </li>
+                    <button type="button" class="list-group-item"
+                        ng-repeat="suggestion in main.suggestions">
+                        {{suggestion}}
+                    </button>
                 </ul>
             </div>
             <!-- BUTTONS -->
@@ -49,6 +53,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/controllers.js"></script>
+        <script type="text/javascript" src="js/services.js"></script>
     </body>
 
 </html>
