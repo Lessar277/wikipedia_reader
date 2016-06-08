@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Special+Elite|Open+Sans:400,700' rel='stylesheet' type='text/css'>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link rel="stylesheet" href="css/main.css">
@@ -27,14 +27,15 @@
                     <input type="text" class="form-control bg-inverse" placeholder="Search Wikipedia" ng-model="main.input"
                     ng-model-options="{ debounce: 250 }"
                     ng-change="main.getSuggestions(main.input, 5); main.collapser(main.input)"
-                    ng-blur="main.collapseHide()" >
+                    ng-blur="main.collapseHide()"
+                    ng-focus="main.collapser(main.input)">
                 </div>
             </div>
 			<!-- SUGGESTION LIST -->
             <div ng-controller="ArticlesController as articles">
                 <div class="collapse">
                     <ul class="list-group">
-                        <button type="button" class="list-group-item p-y-0"
+                        <button type="button" class="list-group-item suggestion-li"
                             ng-repeat="suggestion in main.suggestions"
                             ng-click="main.setSearchValue(suggestion); articles.getArticles(main.input, 10)">
                             {{suggestion}}
@@ -64,7 +65,7 @@
         </div>
         <footer class="footer">
             <div class="container text-xs-center">
-                <span class="text-muted">Place sticky footer content here.</span>
+                <span class="text-muted">&copy; 2016 Catalin Anghel. Source code is hosted on <a href="https://github.com/Lessar277/wikipedia_reader">Github</a></span>
             </div>
         </footer>
         <!-- jQuery first, then Bootstrap JS. -->

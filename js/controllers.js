@@ -7,7 +7,7 @@ angular.module('wikiReader')
             openSearch.getSuggestions(input, limit, function(res){
                 self.suggestions = res.data[1];
             })
-        };
+        }
         this.collapseHide = function() {
             setTimeout(function(){$('.collapse').collapse('hide')}, 100)
         }

@@ -1,3 +1,25 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .content {
     min-height: 90vh;
 }
+
+.suggestion-li {
+    padding: 5px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.articles a {
+    color: #555;
+}
+
+.articles .card:hover {
+    border-left: 7px solid #F0AD4F;
+}
+
+/*#F0AD4F*/
