@@ -9,16 +9,13 @@
         <link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-		<style media="screen">
-			.hidden {
-				display: none;
-			}
-		</style>
+        <link rel="stylesheet" href="css/main.css">
+        <title>WikiReads - a Wikipedia Reader</title>
     </head>
 
     <body class="bg-inverse">
 
-        <div class="container m-t-3 p-y-3" ng-controller="MainController as main">
+        <div class="container content m-t-3 p-y-3" ng-controller="MainController as main">
             <!-- LOGO -->
             <h1 class="text-xs-center m-b-2 display-2 hidden-sm-down" style="font-family: 'Special Elite', cursive; ">WikiReads</h3>
             <h1 class="text-xs-center m-b-3 display-4 hidden-md-up" style="font-family: 'Special Elite', cursive; ">WikiReads</h3>
@@ -27,33 +24,49 @@
             <!-- SEARCH BOX -->
             <div class="row text-xs-center">
                 <div class="col-xs-12">
-                    <input type="text" class="form-control bg-inverse" placeholder="Search Wikipedia" ng-model="input"
+                    <input type="text" class="form-control bg-inverse" placeholder="Search Wikipedia" ng-model="main.input"
                     ng-model-options="{ debounce: 250 }"
-                    ng-change="main.getSuggestions(input, 5); main.collapser(input)"
+                    ng-change="main.getSuggestions(main.input, 5); main.collapser(main.input)"
                     ng-blur="main.collapseHide()" >
                 </div>
             </div>
 			<!-- SUGGESTION LIST -->
-            <div class="collapse">
-                <ul class="list-group">
-                    <button type="button" class="list-group-item p-y-0"
-                        ng-repeat="suggestion in main.suggestions">
-                        {{suggestion}}
-                    </button>
-                </ul>
-            </div>
-            <!-- BUTTONS -->
-            <div class="row m-t-2">
-                <div class="col-xs-12 ">
-                    <button class="btn btn-info bg-inverse col-xs-12 col-md-3 col-md-offset-3 m-r-1 m-b-1" type="button" name="button">Search</button>
-                    <a href="#" class="btn btn-warning bg-inverse col-xs-12 col-md-3" type="button" name="button">Random Article</a>
+            <div ng-controller="ArticlesController as articles">
+                <div class="collapse">
+                    <ul class="list-group">
+                        <button type="button" class="list-group-item p-y-0"
+                            ng-repeat="suggestion in main.suggestions"
+                            ng-click="main.setSearchValue(suggestion); articles.getArticles(main.input, 10)">
+                            {{suggestion}}
+                        </button>
+                    </ul>
+                </div>
+                <!-- BUTTONS -->
+            
+                <div class="row m-t-2">
+                    <div class="col-xs-12 ">
+                        <button class="btn btn-info bg-inverse col-xs-12 col-md-3 col-md-offset-3 m-r-1 m-b-1" type="button" name="button"
+                                ng-click="articles.getArticles(main.input, 10)"
+                                >Search</button>
+                        <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank" class="btn btn-warning bg-inverse col-xs-12 col-md-3" type="button" name="button">Random Article</a>
+                    </div>
+                </div>
+                <!--ARTICLES-->
+                <div class="articles m-t-3 text-muted" ng-hide="articles.isEmpty">
+                    <div class="card card-block" ng-repeat="title in articles.titles">
+                        <a ng-href="{{articles.links[$index]}}" class="text-muted" target="_blank">
+                            <h4 class="card-title">{{title}}</h4>
+                            <p class="card-text">{{articles.descriptions[$index]}}</p>
+                        </a>
+                    </div>
                 </div>
             </div>
-
         </div>
-        <!-- /SEARCH SECTION -->
-
-        <div></div>
+        <footer class="footer">
+            <div class="container text-xs-center">
+                <span class="text-muted">Place sticky footer content here.</span>
+            </div>
+        </footer>
         <!-- jQuery first, then Bootstrap JS. -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
@@ -62,5 +75,5 @@
         <script type="text/javascript" src="js/controllers.js"></script>
         <script type="text/javascript" src="js/services.js"></script>
     </body>
-
+    
 </html>
