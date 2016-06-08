@@ -9,6 +9,11 @@
         <link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+		<style media="screen">
+			.hidden {
+				display: none;
+			}
+		</style>
     </head>
 
     <body class="bg-inverse">
@@ -23,14 +28,15 @@
             <div class="row text-xs-center">
                 <div class="col-xs-12">
                     <input type="text" class="form-control bg-inverse" placeholder="Search Wikipedia" ng-model="input"
-                    ng-model-options="{ debounce: 500 }"
-                    ng-change="main.getSuggestions(input); main.collapser(input)"
+                    ng-model-options="{ debounce: 250 }"
+                    ng-change="main.getSuggestions(input, 5); main.collapser(input)"
                     ng-blur="main.collapseHide()" >
                 </div>
             </div>
+			<!-- SUGGESTION LIST -->
             <div class="collapse">
                 <ul class="list-group">
-                    <button type="button" class="list-group-item"
+                    <button type="button" class="list-group-item p-y-0"
                         ng-repeat="suggestion in main.suggestions">
                         {{suggestion}}
                     </button>
